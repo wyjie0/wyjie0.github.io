@@ -9,7 +9,6 @@ var isOneStart = true; //判断是否为第一次开始
 var dz = 0,
 	ld = 0,
 	df = 0;
-
 window.onload = function() {
 	//获取HTML元素
 	tl = document.getElementById("tl");
@@ -22,7 +21,7 @@ window.onload = function() {
 	tzBtn = document.getElementById("tzBtn");
 	imgs = document.images;
 	zt_div = document.getElementById("zt_div");
-
+	jinzhi();
 	//游戏开始事件
 	ksBtn.onclick = function() {
 		tl_time = parseInt(tl.value); //停留时间
@@ -42,7 +41,7 @@ window.onload = function() {
 
 		//禁止用户操作输入框
 		isStart = true;
-		jinzhi();
+//		jinzhi();
 	}
 
 	//游戏暂停事件
@@ -83,15 +82,20 @@ function djs() {
 	var game_time = new Date();
 	//计算倒计时
 
-	djs_data = sc_time * 60 - parseInt((game_time - start_Time) / 1000);
+	djs_data = sc_time - parseInt((game_time - start_Time) / 1000);
 
 	//显示倒计时
 	djs_span.innerHTML = djs_data;
 
 	if(djs_data < 1) {
-		alert("游戏结束");
-		game_over();
-		return;
+		var r = confirm("游戏结束, 返回继续游戏？");
+		if(r == true) {
+			self.location = "index.html";
+		} else {
+			alert("游戏结束");
+			game_over();
+			return;
+		}
 	}
 
 	//倒计时的计数器
@@ -143,12 +147,13 @@ function game_over() {
 	}
 	isStart = false;
 	djs_span.innerHTML = 0;
-
+	df_span.innerHTML = 0;
 	//恢复游戏场地
 	zt_div.style.display = "none";
 
 	//地鼠清场
 	qingchang();
+	jinzhi();
 }
 
 //地鼠清场
@@ -184,7 +189,7 @@ function mouse_hide(i) {
 		if(df <= 0) {
 			df = 0;
 		}
-		df_span.innerHTML = "打中" + dz + "只，漏掉" + ld + "只，得分" + df;
+		df_span.innerHTML = "打中" + dz + "只，得分" + df;
 	}
 }
 
@@ -199,7 +204,7 @@ function play(obj) {
 		//计分
 		dz++;
 		df += 1;
-		df_span.innerHTML = "打中" + dz + "只，漏掉" + ld + "只，得分" + df;
+		df_span.innerHTML = "打中" + dz + "只，得分" + df;
 
 		//打中后还原
 		play_id = setTimeout(function() {
@@ -211,6 +216,11 @@ function play(obj) {
 
 //禁止用户操作方法
 function jinzhi() {
+	tl.disabled = true;
+	jg.disabled = true;
+	sc.disabled = true;
+//	ksBtn.disabled = true;
+	/*
 	if(isStart) {
 		tl.disabled = true;
 		jg.disabled = true;
@@ -221,7 +231,7 @@ function jinzhi() {
 		jg.disabled = false;
 		sc.disabled = false;
 		ksBtn.disabled = false;
-	}
+	}*/
 }
 
 /*
