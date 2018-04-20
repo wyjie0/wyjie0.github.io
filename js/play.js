@@ -2,6 +2,7 @@ var tl, jg, sc, djs_span, df_span, ksBtn, ztBtn, tzBtn;
 var imgs;
 var djs_id, jg_id, tl_id, play_id;
 var isStart; //判断是否开始
+var firstZT = true; //游戏刚开始不能暂停
 var isZT = false;
 var djs_data; //倒计时的时间
 var jxGame_sc; //继续游戏的总时长
@@ -22,6 +23,10 @@ window.onload = function() {
 	imgs = document.images;
 	zt_div = document.getElementById("zt_div");
 	jinzhi();
+
+	//	if(firstZT == true) {
+	//		ztBtn.disabled = true;
+	//	}
 	//游戏开始事件
 	ksBtn.onclick = function() {
 		tl_time = parseInt(tl.value); //停留时间
@@ -30,7 +35,7 @@ window.onload = function() {
 
 		//设置第一次开始游戏
 		isOneStart = true;
-
+		firstZT = false;
 		//记录游戏开始时间
 		start_Time = new Date();
 
@@ -41,11 +46,13 @@ window.onload = function() {
 
 		//禁止用户操作输入框
 		isStart = true;
-//		jinzhi();
+		ksBtn.disabled = true;
+		//		jinzhi();
 	}
 
 	//游戏暂停事件
 	ztBtn.onclick = function() {
+
 		if(isZT) {
 			//继续游戏
 			isOneStart = false;
@@ -61,7 +68,7 @@ window.onload = function() {
 			mouse_show();
 
 			//进制用户操作输入框
-			jinzhi();
+			//			jinzhi();
 		} else {
 			//暂停游戏
 			game_zt();
@@ -124,13 +131,28 @@ function game_jx() {
 	var jxGame_timming = new Date();
 
 	//重新计算倒计时
-	djs_data = jxGame_sc - parseInt((jxGame_timming - jxGame_startTime) / 1000);
-	djs_span.innerHTML = djs_data;
+	if(firstZT == true) {
+		var game_time = new Date();
+		//计算倒计时
+
+		djs_data = sc_time - parseInt((game_time - start_Time) / 1000);
+
+		//显示倒计时
+		djs_span.innerHTML = djs_data;
+	} else {
+		djs_data = jxGame_sc - parseInt((jxGame_timming - jxGame_startTime) / 1000);
+		djs_span.innerHTML = djs_data;
+	}
 
 	if(djs_data < 1) {
-		alert("游戏结束");
-		game_over();
-		return;
+		var r = confirm("游戏结束, 返回继续游戏？");
+		if(r == true) {
+			self.location = "index.html";
+		} else {
+			alert("游戏结束");
+			game_over();
+			return;
+		}
 	}
 
 	jxDJS_id = setTimeout("game_jx()", 1000);
@@ -153,7 +175,8 @@ function game_over() {
 
 	//地鼠清场
 	qingchang();
-	jinzhi();
+	ksBtn.disabled=false;
+//	jinzhi();
 }
 
 //地鼠清场
@@ -181,7 +204,7 @@ function mouse_hide(i) {
 	var name = imgs[i].src.substr(imgs[i].src.length - 5, 1);
 
 	if(name == 2) {
-		imgs[i].src = "img/1.jpg";
+		imgs[i].src = "/img/1.jpg";
 
 		//计分
 		ld++;
@@ -219,7 +242,7 @@ function jinzhi() {
 	tl.disabled = true;
 	jg.disabled = true;
 	sc.disabled = true;
-//	ksBtn.disabled = true;
+	//	ksBtn.disabled = true;
 	/*
 	if(isStart) {
 		tl.disabled = true;
