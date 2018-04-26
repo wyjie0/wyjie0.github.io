@@ -1,4 +1,4 @@
-var tl, jg, sc, djs_span, df_span, ksBtn, ztBtn, tzBtn;
+var tl, jg, sc, djs_span, df_span, ksBtn, ztBtn, tzBtn, returnButton;
 var imgs;
 var djs_id, jg_id, tl_id, play_id;
 var isStart; //判断是否开始
@@ -20,6 +20,7 @@ window.onload = function() {
 	ksBtn = document.getElementById("ksBtn");
 	ztBtn = document.getElementById("ztBtn");
 	tzBtn = document.getElementById("tzBtn");
+	returnButton = document.getElementById("returnButton");
 	imgs = document.images;
 	zt_div = document.getElementById("zt_div");
 	jinzhi();
@@ -77,9 +78,37 @@ window.onload = function() {
 
 	//游戏结束事件
 	tzBtn.onclick = function() {
-
-		game_over();
+		
+		var r = confirm("确定重新开始本次游戏？");
+		
+		if(r == true){			
+			game_over();
+			window.history.back();
+			location.reload();
+		}
+		
 		//   			jinzhi();
+	}
+	
+	returnButton.onclick = function() {
+		
+		
+		var r = confirm("确定退出本次游戏？");
+		
+		if(r == true){
+			alert("游戏结束\n" + document.getElementById("defen").innerText);
+			game_over();
+			//self.location = "index.html";
+			if(window.history.length >3){
+				window.history.go(-2);
+			}else {
+				window.location.href="index.html";
+				document.URL=location.href;
+				//window.location.reload(true);
+			}
+			
+		}
+		
 	}
 }
 
@@ -95,11 +124,13 @@ function djs() {
 	djs_span.innerHTML = djs_data;
 
 	if(djs_data < 1) {
-		var r = confirm("游戏结束, 返回继续游戏？");
+		var r = confirm("游戏结束, 返回主菜单？");
 		if(r == true) {
+			alert("游戏结束\n" + document.getElementById("defen").innerText);
+			game_over();
 			self.location = "index.html";
 		} else {
-			alert("游戏结束");
+			alert("游戏结束\n" + document.getElementById("defen").innerText);
 			game_over();
 			return;
 		}
@@ -147,9 +178,11 @@ function game_jx() {
 	if(djs_data < 1) {
 		var r = confirm("游戏结束, 返回继续游戏？");
 		if(r == true) {
+			alert("游戏结束\n" + document.getElementById("defen").innerText);
+			game_over();
 			self.location = "index.html";
 		} else {
-			alert("游戏结束");
+			alert("游戏结束\n" + document.getElementById("defen").innerText);
 			game_over();
 			return;
 		}
@@ -159,6 +192,7 @@ function game_jx() {
 }
 
 //游戏结束
+
 function game_over() {
 	clearTimeout(tl_id);
 	clearTimeout(jg_id);
@@ -170,6 +204,7 @@ function game_over() {
 	isStart = false;
 	djs_span.innerHTML = 0;
 	df_span.innerHTML = 0;
+
 	//恢复游戏场地
 	zt_div.style.display = "none";
 
@@ -209,9 +244,6 @@ function mouse_hide(i) {
 		//计分
 		ld++;
 		//  			df--;
-		if(df <= 0) {
-			df = 0;
-		}
 		df_span.innerHTML = "打中" + dz + "只，得分" + df;
 	}
 }
