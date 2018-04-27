@@ -42,6 +42,14 @@ function chooseLevel() {
 }
 
 //查看历史记录
-function historyRecord() {
-	self.location = "record.html";
+function gameSet() {
+	self.location = "Setting.html";
+}
+
+//查看游戏帮助
+function gameHelp() {
+	alert("欢乐的农场里突然出现一批地鼠，希望身手敏捷的你能在一定时间内消灭更多" +
+			"的地鼠，来使农民的庄稼不受损失!\n" + 
+			"这是一款小巧轻量的打地鼠游戏，无聊的时候就来打地鼠吧。\n点击图中出现的地鼠即可。\n" + 
+			"可选择游戏的难度，一共有十个游戏难度。也可以设置打开或关闭背景音乐。\n");
 }

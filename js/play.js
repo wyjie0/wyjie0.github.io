@@ -7,6 +7,11 @@ var isZT = false;
 var djs_data; //倒计时的时间
 var jxGame_sc; //继续游戏的总时长
 var isOneStart = true; //判断是否为第一次开始
+
+var databaseLevel;
+var databaseScore;
+var user;
+
 var dz = 0,
 	ld = 0,
 	df = 0;
@@ -23,6 +28,11 @@ window.onload = function() {
 	returnButton = document.getElementById("returnButton");
 	imgs = document.images;
 	zt_div = document.getElementById("zt_div");
+
+	databaseLevel = document.getElementById("databaseLevel");
+	databaseScore = document.getElementById("databaseScore");
+	user = document.getElementById("User");
+
 	jinzhi();
 
 	//	if(firstZT == true) {
@@ -78,37 +88,35 @@ window.onload = function() {
 
 	//游戏结束事件
 	tzBtn.onclick = function() {
-		
+
 		var r = confirm("确定重新开始本次游戏？");
-		
-		if(r == true){			
+
+		if(r == true) {
 			game_over();
 			window.history.back();
 			location.reload();
 		}
-		
+
 		//   			jinzhi();
 	}
-	
+
 	returnButton.onclick = function() {
-		
-		
+
 		var r = confirm("确定退出本次游戏？");
-		
-		if(r == true){
+
+		if(r == true) {
 			alert("游戏结束\n" + document.getElementById("defen").innerText);
 			game_over();
 			//self.location = "index.html";
-			if(window.history.length >3){
+			if(window.history.length > 3) {
 				window.history.go(-2);
-			}else {
-				window.location.href="index.html";
-				document.URL=location.href;
+			} else {
+				window.location.href = "index.html";
+				document.URL = location.href;
 				//window.location.reload(true);
 			}
-			
+
 		}
-		
 	}
 }
 
@@ -210,8 +218,8 @@ function game_over() {
 
 	//地鼠清场
 	qingchang();
-	ksBtn.disabled=false;
-//	jinzhi();
+	ksBtn.disabled = false;
+	//	jinzhi();
 }
 
 //地鼠清场

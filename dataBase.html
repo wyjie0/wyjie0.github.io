@@ -61,6 +61,17 @@
 				});
 			}
 
+/*			function deleteData() {
+				var db = getCurrentDb();
+				db.transaction(function(trans) {
+					trans.executeSql("drop table Demo ", [], function(ts, data) {},
+						function(ts, message) {
+							alert(message);
+							var tst = message;
+						});
+				});
+			}
+*/
 			function appendDataToTable(data) { //将数据展示到表格里面
 				//uName,title,words
 				var txtName = data.uName;
@@ -80,21 +91,27 @@
 	<body>
 		<table>
 			<tr>
-				<td>用户名：</td>
-				<td><input type="text" name="txtName" id="txtName" required/></td>
+				<td>关卡：</td>
+				<td><input type="text" name="txtName" id="databaseLevel" /></td>
 			</tr>
 			<tr>
-				<td>得分：</td>
-				<td><input type="text" name="txtTitle" id="txtTitle" required/></td>
+				<td>玩家名：</td>
+				<td><input type="text" name="txtTitle" id="User" /></td>
 			</tr>
 			<tr>
-				<td>留言：</td>
-				<td><input type="text" name="txtWords" id="txtWords" required/></td>
+				<td>分数：</td>
+				<td><input type="text" name="txtWords" id="databaseScore" /></td>
 			</tr>
 		</table>
 		<input type="button" value="保存" id="btnSave" />
 		<hr/>
 		<input type="button" value="展示所有数据" onclick="showAllTheData();" />
+		<!--
+        	作者：670865824@qq.com
+        	时间：2018-04-26
+        	描述：<input type="button" value="删除" onclick="deleteData();" />
+        -->
+		
 		<table id="tblData">
 		</table>
 	</body>

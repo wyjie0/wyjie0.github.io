@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>游戏设置</title>
+	</head>
+	
+	<script>
+		var music_on = document.getElementById("openMusic");
+		var music_off = document.getElementById("closeMusic");
+		var music1 = document.getElementById("music");
+		function musicSetting(){
+			if(music_off.checked == true){
+				music1.pause();
+			}
+			if(music_on.checked == true){
+				music1.play();
+			}
+		}
+	</script>
+
+	<body>
+		背景音乐<br /> 
+		开：
+		<input type="checkbox" id="openMusic" checked="checked" /> 
+		关：
+		<input type="checkbox" id="closeMusic" />
+	</body>
+
+</html>

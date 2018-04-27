@@ -10,7 +10,22 @@
 
 	<script src="js/chooseLevel.js"></script>
 
-	<audio src="music/chooseLevel.mp3" hidden="hidden" autoplay="autoplay" loop="loop" controls="controls"></audio>
+	<script>
+		//设置关闭或打开背景音乐
+		function playPause() {
+			var music = document.getElementById("music");
+			var music_btn = document.getElementById("music_btn");
+			if(music.paused) {
+				music.play();
+				music_btn.src = "img/paly.jpg";
+			} else {
+				music.pause();
+				music_btn.src = "img/pause.jpg";
+			}
+		}
+	</script>
+
+	<audio id="music" src="music/chooseLevel.mp3" hidden="hidden" autoplay="autoplay" loop="loop" controls="controls"></audio>
 
 	<body>
 		<div style="
@@ -23,12 +38,16 @@
 			left: 0px;
 			z-index: 100;
 			opacity: 0.6;">
+			音效
+			<a href="javascript:playPause();">
+				<img src="img/paly.jpg" width="50" height="50" id="music_btn" border="0">
+			</a>
 			<div style="
-
+				position: absolute;
 				visibility: visible;
 				width: 150px;
 				height: 100%;
-				top: 50px;">
+				top: 65px;">
 
 				<button id="level1" style="
 				width: 100%;
@@ -64,9 +83,7 @@
 				width: 100%;
 				height: 40px;
 				background-color: beige;
-				font-size: large;" 
-				type="submit"
-				onclick="levelSix()">第六关</button><br />
+				font-size: large;" type="submit" onclick="levelSix()">第六关</button><br />
 
 				<button id="level7" style="
 				width: 100%;
