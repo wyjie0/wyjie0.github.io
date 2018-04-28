@@ -1,0 +1,38 @@
+.scores {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+.score-container {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	
+	margin: 1.8rem;
+	font-size: 1.2rem;
+	line-height: 1;
+	color: #555;
+}
+.score-container.best-score {
+	color: #9a9a95;
+}
+
+.score {
+	margin-left: 1rem;
+	position: relative;
+	font-weight: bold;
+	font-size: 1.5rem;
+	vertical-align: middle;
+	text-align: right;
+}

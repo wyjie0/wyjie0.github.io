@@ -1,12 +1,16 @@
-var tl, jg, sc, djs_span, df_span, ksBtn, ztBtn, tzBtn, returnButton;
+var tl, jg, sc, djs_span, df_span, ksBtn, ztBtn, tzBtn, returnButton, musicBtn;
 var imgs;
 var djs_id, jg_id, tl_id, play_id;
 var isStart; //判断是否开始
 var firstZT = true; //游戏刚开始不能暂停
 var isZT = false;
+var isBSOff = false;
 var djs_data; //倒计时的时间
 var jxGame_sc; //继续游戏的总时长
 var isOneStart = true; //判断是否为第一次开始
+
+var bestScore = 0; //最高分
+var bestScoreDiv;
 
 var databaseLevel;
 var databaseScore;
@@ -26,8 +30,11 @@ window.onload = function() {
 	ztBtn = document.getElementById("ztBtn");
 	tzBtn = document.getElementById("tzBtn");
 	returnButton = document.getElementById("returnButton");
+	musicBtn = document.getElementById("musicBtn");
 	imgs = document.images;
 	zt_div = document.getElementById("zt_div");
+
+	bestScoreDiv = document.getElementById("bestScore"); //记录最高得分
 
 	databaseLevel = document.getElementById("databaseLevel");
 	databaseScore = document.getElementById("databaseScore");
@@ -54,6 +61,8 @@ window.onload = function() {
 		djs();
 		//执行地鼠出现的方法
 		mouse_show();
+		//初始化最高分
+		initBestScore();
 
 		//禁止用户操作输入框
 		isStart = true;
@@ -100,7 +109,13 @@ window.onload = function() {
 		//   			jinzhi();
 	}
 
+	//返回游戏主菜单时间
 	returnButton.onclick = function() {
+
+		if(df > bestScore) {
+			localStorage.setItem('bestScore', df);
+			initBestScore();
+		}
 
 		var r = confirm("确定退出本次游戏？");
 
@@ -118,6 +133,27 @@ window.onload = function() {
 
 		}
 	}
+
+	musicBtn.onclick = function() {
+		var music = document.getElementById("music");
+		
+/*		if(isBSOff == true) {
+			
+		}*/
+		if(music.paused) {
+			music.play();
+			musicBtn.textContent = "关闭背景音乐";
+		} else {
+			musicBtn.textContent = "打开背景音乐";
+			music.pause();
+		}
+	}
+}
+
+//初始化最高分
+function initBestScore() {
+	bestScore = localStorage.getItem('bestScore') || 0;
+	bestScoreDiv.innerHTML = bestScore;
 }
 
 //倒计时方法
@@ -132,6 +168,12 @@ function djs() {
 	djs_span.innerHTML = djs_data;
 
 	if(djs_data < 1) {
+
+		if(df > bestScore) {
+			localStorage.setItem('bestScore', df);
+			initBestScore();
+		}
+
 		var r = confirm("游戏结束, 返回主菜单？");
 		if(r == true) {
 			alert("游戏结束\n" + document.getElementById("defen").innerText);
@@ -184,6 +226,13 @@ function game_jx() {
 	}
 
 	if(djs_data < 1) {
+
+		//记录最高分
+		if(df > bestScore) {
+			localStorage.setItem('bestScore', df);
+			initBestScore();
+		}
+
 		var r = confirm("游戏结束, 返回继续游戏？");
 		if(r == true) {
 			alert("游戏结束\n" + document.getElementById("defen").innerText);
@@ -251,7 +300,6 @@ function mouse_hide(i) {
 
 		//计分
 		ld++;
-		//  			df--;
 		df_span.innerHTML = "打中" + dz + "只，得分" + df;
 	}
 }

@@ -40,35 +40,41 @@
 			}
 		</script>
 		
+		<link rel="stylesheet" href="css/style.css"/>
+		
 	</head>
 	
 	<audio id="music" src="music/gaming.mp3" hidden="hidden" autoplay="autoplay" loop="loop"></audio>
 
 	<body>
 
-		地鼠停留时间: <input id="tl" type="text" size="5" value="3" />秒
-		
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		音效
-		<a href="javascript:playPause();">
-		<img src="img/paly.jpg" width="50" height="50" id="music_btn" border="0">
-		</a>
-		
-		<br /> 
+		地鼠停留时间: <input id="tl" type="text" size="5" value="3" />秒<br /> 
 		地鼠出现间隔: <input id="jg" type="text" size="5" value="1" />秒<br /> 
-		游戏时长: <input id="sc" type="text" size="5px" value="75" />秒<br /> 
+		游戏时长: <input id="sc" type="text" size="5px" value="75" />秒
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<button id="musicBtn">关闭背景音乐</button><br /> 
 		游戏倒计时：<span id="djs"></span><br /> 
 		游戏得分: <span id="defen"></span><br />
 		
 		<button id="ksBtn">开始游戏</button>
 		<button id="ztBtn">暂停游戏</button>
-		<button id="tzBtn">停止游戏</button>
+		<button id="tzBtn">重新开始游戏</button>
 		<button id="returnButton">返回主菜单</button>
 
 		<hr />
 		<!--游戏区域-->
 		<div id="game_div">
 			<div id="zt_div"></div>
+			
+			<div class="scores">
+				<div class="score-container best-score">
+					最佳得分：
+					<div class="score">
+						<div id="bestScore">0</div>
+					</div>
+				</div>
+			</div>
+			
 			<table border="1px">
 				<tr>
 					<td><img src="img/1.jpg" onclick="play(this)" /></td>
