@@ -14,8 +14,10 @@
 	<script>
 		//设置关闭或打开背景音乐
 		function playPause() {
-			var music = document.getElementById("music");
-			var music_btn = document.getElementById("music_btn");
+			
+			var music = document.getElementById("music");//获取音乐标签
+			var music_btn = document.getElementById("music_btn");//获取按钮
+			
 			if(music.paused) {
 				music.play();
 				music_btn.src = "img/paly.jpg";
@@ -39,7 +41,7 @@
 			top: 0px;
 			left: 0px;
 			z-index: 100;
-			opacity: 0.6;
+			opacity: 1.0;
 			">
 			
 			音效
@@ -71,16 +73,6 @@
 				background-size: contain; 
 				font-size: large;" onclick="chooseLevel()">
 				选择游戏难度
-			</button><br><br>
-				<button style="
-				width: 100%;
-				height: 40px;
-				padding-left: 24px;
-				padding-right: 24px;
-				background-image: url(img/button1.jpg); 
-				background-size: contain; 
-				font-size: large;" onclick="gameSet()">
-				游戏设置
 			</button><br><br>
 				<button style="
 				width: 100%;

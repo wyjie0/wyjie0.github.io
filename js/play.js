@@ -56,7 +56,9 @@ window.onload = function() {
 		firstZT = false;
 		//记录游戏开始时间
 		start_Time = new Date();
-
+		
+		
+		
 		//执行倒计时方法
 		djs();
 		//执行地鼠出现的方法
@@ -175,6 +177,7 @@ function djs() {
 		}
 
 		var r = confirm("游戏结束, 返回主菜单？");
+		
 		if(r == true) {
 			alert("游戏结束\n" + document.getElementById("defen").innerText);
 			game_over();
@@ -330,19 +333,7 @@ function jinzhi() {
 	tl.disabled = true;
 	jg.disabled = true;
 	sc.disabled = true;
-	//	ksBtn.disabled = true;
-	/*
-	if(isStart) {
-		tl.disabled = true;
-		jg.disabled = true;
-		sc.disabled = true;
-		ksBtn.disabled = true;
-	} else {
-		tl.disabled = false;
-		jg.disabled = false;
-		sc.disabled = false;
-		ksBtn.disabled = false;
-	}*/
+
 }
 
 /*
