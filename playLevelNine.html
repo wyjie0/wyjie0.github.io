@@ -29,6 +29,7 @@
 			var tl, jg, sc, djs_span, df_span, ksBtn, ztBtn, tzBtn, returnButton, musicBtn;
 			var imgs;
 			var djs_id, jg_id, tl_id, play_id;
+			var bombjg_id, bombtl_id;
 			var isStart; //判断是否开始
 			var firstZT = true; //游戏刚开始不能暂停
 			var isZT = false;
@@ -89,6 +90,7 @@
 					djs();
 					//执行地鼠出现的方法
 					mouse_show();
+					bomb_show();
 					//初始化最高分
 					initbestScore9();
 
@@ -114,6 +116,7 @@
 						//执行地鼠出现的方法
 						qingchang();
 						mouse_show();
+						bomb_show();
 
 						//进制用户操作输入框
 						//			jinzhi();
@@ -224,6 +227,8 @@
 				clearTimeout(djs_id);
 				clearTimeout(jg_id);
 				clearTimeout(tl_id);
+				clearTimeout(bombjg_id);
+				clearTimeout(bombtl_id);
 				if(!isOneStart) {
 					clearTimeout(jxDJS_id);
 				}
@@ -282,6 +287,8 @@
 			function game_over() {
 				clearTimeout(tl_id);
 				clearTimeout(jg_id);
+				clearTimeout(bombjg_id);
+				clearTimeout(bombtl_id);
 				clearTimeout(djs_id);
 				clearTimeout(play_id);
 				if(!isOneStart) {
@@ -306,6 +313,26 @@
 					imgs[i].src = "img/1.jpg";
 				}
 			}
+			
+			function bomb_show() {
+
+				var i = parseInt(Math.random() * imgs.length);
+
+				imgs[i].src = "img/0.jpg";
+
+				bombjg_id = setTimeout("bomb_show()", jg_time * 10000);
+
+				bombtl_id = setTimeout("bomb_hide(" + i + ")", tl_time * 1000);
+
+			}
+
+			function bomb_hide(i) {
+				var name = imgs[i].src.substr(imgs[i].src.length - 5, 1);
+
+				if(name == 0) {
+					imgs[i].src = "/img/1.jpg";
+				}
+			}
 
 			//地鼠出现的方法
 			function mouse_show() {
@@ -317,9 +344,9 @@
 				imgs[j].src = "img/2.jpg";
 
 				//地鼠出现间隔
-				jg_id = setTimeout("mouse_show()", jg_time * 1000);
+				jg_id = setTimeout("mouse_show()", jg_time * 2500);
 				//地鼠停留时间
-				tl_id = setTimeout("mouse_hide(" + i + ")", tl_time * 1000);
+				tl_id = setTimeout("mouse_hide(" + i + ")", tl_time * 5000);
 			}
 
 			//地鼠消失，没打中
@@ -353,6 +380,16 @@
 						obj.src = "img/1.jpg";
 						//				clearTimeout(tl_id);
 					}, 500);
+				}
+				
+				if(name == 0) {
+
+					alert("嗨呀，打中地雷了，你失败啦！！\n" + document.getElementById("defen").innerText);
+					game_over();
+					//self.location = "index.html";
+					window.history.back();
+					location.reload();
+
 				}
 			}
 
