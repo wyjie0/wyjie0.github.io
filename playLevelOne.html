@@ -30,14 +30,13 @@
         -->
 
 		<script>
-			var tl, jg, sc, djs_span, df_span, ksBtn, ztBtn, tzBtn, returnButton, musicBtn;
+			var stayTime, jg, sc, djs_span, df_span, ksBtn, ztBtn, tzBtn, returnButton, musicBtn;
 			var imgs;
-			var djs_id, jg_id, tl_id, play_id;
+			var djs_id, jg_id, stayTime_id, play_id;
 			var bombjg_id, bombtl_id;
 			var isStart; //判断是否开始
 			var firstZT = true; //游戏刚开始不能暂停
-			var isZT = false;
-			var isBSOff = false;
+			var isZT = false;//是否处于暂停状态
 			var djs_data; //倒计时的时间
 			var jxGame_sc; //继续游戏的总时长
 			var isOneStart = true; //判断是否为第一次开始
@@ -54,7 +53,7 @@
 				df = 0;
 			window.onload = function() {
 				//获取HTML元素
-				tl = document.getElementById("tl");
+				stayTime = document.getElementById("stayTime");
 				jg = document.getElementById("jg");
 				sc = document.getElementById("sc");
 				djs_span = document.getElementById("djs");
@@ -75,12 +74,9 @@
 
 				jinzhi();
 
-				//	if(firstZT == true) {
-				//		ztBtn.disabled = true;
-				//	}
 				//游戏开始事件
 				ksBtn.onclick = function() {
-					tl_time = parseInt(tl.value); //停留时间
+					stayTime_time = parseInt(stayTime.value); //停留时间
 					jg_time = parseInt(jg.value); //间隔时间
 					sc_time = parseInt(sc.value); //游戏时长
 
@@ -132,7 +128,7 @@
 					}
 				}
 
-				//游戏结束事件
+				//重新开始游戏事件
 				tzBtn.onclick = function() {
 
 					var r = confirm("确定重新开始本次游戏？");
@@ -174,9 +170,6 @@
 				musicBtn.onclick = function() {
 					var music = document.getElementById("music");
 
-					/*		if(isBSOff == true) {
-								
-							}*/
 					if(music.paused) {
 						music.play();
 						musicBtn.textContent = "关闭背景音乐";
@@ -234,7 +227,7 @@
 			function game_zt() {
 				clearTimeout(djs_id);
 				clearTimeout(jg_id);
-				clearTimeout(tl_id);
+				clearTimeout(stayTime_id);
 
 				clearTimeout(bombjg_id);
 				clearTimeout(bombtl_id);
@@ -294,7 +287,7 @@
 			//游戏结束
 
 			function game_over() {
-				clearTimeout(tl_id);
+				clearTimeout(stayTime_id);
 				clearTimeout(jg_id);
 
 				clearTimeout(bombjg_id);
@@ -332,7 +325,7 @@
 
 				bombjg_id = setTimeout("bomb_show()", jg_time * 10000);
 
-				bombtl_id = setTimeout("bomb_hide(" + i + ")", tl_time * 1000);
+				bombtl_id = setTimeout("bomb_hide(" + i + ")", stayTime_time * 1000);
 
 			}
 
@@ -354,7 +347,7 @@
 				//地鼠出现间隔
 				jg_id = setTimeout("mouse_show()", jg_time * 1000);
 				//地鼠停留时间
-				tl_id = setTimeout("mouse_hide(" + i + ")", tl_time * 1000);
+				stayTime_id = setTimeout("mouse_hide(" + i + ")", stayTime_time * 1000);
 			}
 
 			//地鼠消失，没打中
@@ -412,7 +405,7 @@
 
 			//禁止用户操作方法
 			function jinzhi() {
-				tl.disabled = true;
+				stayTime.disabled = true;
 				jg.disabled = true;
 				sc.disabled = true;
 
@@ -445,9 +438,12 @@
 	<audio id="music" src="music/gaming.mp3" hidden="hidden" autoplay="autoplay" loop="loop"></audio>
 
 	<body>
-		地鼠停留时间: <input id="tl" type="text" size="5" value="3" />秒<br /> 地鼠出现间隔: <input id="jg" type="text" size="5" value="1" />秒<br /> 游戏时长: <input id="sc" type="text" size="5px" value="105" />秒 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<button id="musicBtn">关闭背景音乐</button><br /> 游戏倒计时：
-		<span id="djs"></span><br /> 游戏得分: <span id="defen"></span><br />
+		地鼠停留的时间: <input id="stayTime" type="text" size="5" value="3" />秒<br />
+		地鼠出现的间隔时间: <input id="jg" type="text" size="5" value="1" />秒<br /> 
+		游戏总时间: <input id="sc" type="text" size="5px" value="105" />秒 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<button id="musicBtn">关闭背景音乐</button><br /> 
+		倒计时：<span id="djs"></span><br /> 
+		总得分: <span id="defen"></span><br />
 
 		<button id="ksBtn">开始游戏</button>
 		<button id="ztBtn">暂停游戏</button>
@@ -463,7 +459,7 @@
 				<div class="score-container best-score">
 					最佳得分：
 					<div class="score">
-						<div id="bestScore">0</div>
+						<div id="bestScore1">0</div>
 					</div>
 				</div>
 			</div>
