@@ -23,9 +23,8 @@
 				display: none;
 			}
 		</style>
-		
+
 		<script>
-			
 			var tl, jg, sc, djs_span, df_span, ksBtn, ztBtn, tzBtn, returnButton, musicBtn;
 			var imgs;
 			var djs_id, jg_id, tl_id, play_id;
@@ -334,7 +333,6 @@
 				}
 			}
 
-
 			//地鼠出现的方法
 			function mouse_show() {
 				//生成随机的数组下标
@@ -366,8 +364,11 @@
 			function play(obj) {
 				//获取图片的名称
 				var name = obj.src.substr(obj.src.length - 5, 1);
+				var yx = document.getElementById("yinxiao");
+				var dl = document.getElementById("dilei");
 
 				if(name == 2) {
+					yx.play();
 					obj.src = "img/3.jpg";
 
 					//计分
@@ -381,9 +382,10 @@
 						//				clearTimeout(tl_id);
 					}, 500);
 				}
-				
+
 				if(name == 0) {
-					
+
+					dl.play();
 					alert("嗨呀，打中地雷了，你失败啦！！\n" + document.getElementById("defen").innerText);
 					game_over();
 					//self.location = "index.html";
@@ -391,7 +393,7 @@
 					location.reload();
 
 				}
-				
+
 			}
 
 			//禁止用户操作方法
@@ -401,36 +403,34 @@
 				sc.disabled = true;
 
 			}
-			
-					//设置关闭或打开背景音乐
-			function playPause(){
+
+			//设置关闭或打开背景音乐
+			function playPause() {
 				var music = document.getElementById("music");
 				var music_btn = document.getElementById("music_btn");
-				if(music.paused){
+				if(music.paused) {
 					music.play();
 					music_btn.src = "img/paly.jpg";
-				}else{
+				} else {
 					music.pause();
 					music_btn.src = "img/pause.jpg";
 				}
 			}
 		</script>
-		
-		<link rel="stylesheet" href="css/style.css"/>
-		
+
+		<link rel="stylesheet" href="css/style.css" />
+
 	</head>
-	
+
 	<audio id="music" src="music/gaming.mp3" hidden="hidden" autoplay="autoplay" loop="loop"></audio>
+	<audio id="yinxiao" src="music/yinxiao3.mp3 " hidden="hidden"></audio>
+	<audio id="dilei" src="music/boom.mp3" hidden="hidden"></audio>
 
 	<body>
 
-		地鼠停留时间: <input id="tl" type="text" size="5" value="3" />秒<br /> 
-		地鼠出现间隔: <input id="jg" type="text" size="5" value="1" />秒<br /> 
-		游戏时长: <input id="sc" type="text" size="5px" value="85" />秒
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<button id="musicBtn">关闭背景音乐</button><br /> 
-		游戏倒计时：<span id="djs"></span><br /> 
-		游戏得分: <span id="defen"></span><br />
+		地鼠停留时间: <input id="tl" type="text" size="5" value="3" />秒<br /> 地鼠出现间隔: <input id="jg" type="text" size="5" value="1" />秒<br /> 游戏时长: <input id="sc" type="text" size="5px" value="85" />秒 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<button id="musicBtn">关闭背景音乐</button><br /> 游戏倒计时：
+		<span id="djs"></span><br /> 游戏得分: <span id="defen"></span><br />
 
 		<button id="ksBtn">开始游戏</button>
 		<button id="ztBtn">暂停游戏</button>
@@ -441,7 +441,7 @@
 		<!--游戏区域-->
 		<div id="game_div">
 			<div id="zt_div"></div>
-			
+
 			<div class="scores">
 				<div class="score-container best-score">
 					最佳得分：
@@ -450,7 +450,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<table border="1px">
 				<tr>
 					<td><img src="img/1.jpg" onclick="play(this)" /></td>

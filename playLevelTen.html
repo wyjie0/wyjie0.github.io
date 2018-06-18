@@ -38,6 +38,8 @@
 			var jxGame_sc; //继续游戏的总时长
 			var isOneStart = true; //判断是否为第一次开始
 
+			
+			
 			var bestScore10 = 0; //最高分
 			var bestScore10Div;
 
@@ -49,6 +51,7 @@
 				ld = 0,
 				df = 0;
 			window.onload = function() {
+
 				//获取HTML元素
 				tl = document.getElementById("tl");
 				jg = document.getElementById("jg");
@@ -88,6 +91,8 @@
 
 					//执行倒计时方法
 					djs();
+					
+					
 					//执行地鼠出现的方法
 					mouse_show();
 					bomb_show();
@@ -368,9 +373,12 @@
 			function play(obj) {
 				//获取图片的名称
 				var name = obj.src.substr(obj.src.length - 5, 1);
+				var yx = document.getElementById("yinxiao");
+				var dl = document.getElementById("dilei");
 
 				if(name == 2) {
 					
+					yx.play();
 					obj.src = "img/3.jpg";
 					
 //					document.all.sound.src = "music/yinxiao.mp3";
@@ -389,6 +397,7 @@
 				
 				if(name == 0) {
 
+					dl.play();
 					alert("嗨呀，打中地雷了，你失败啦！！\n" + document.getElementById("defen").innerText);
 					game_over();
 					//self.location = "index.html";
@@ -418,6 +427,17 @@
 					music_btn.src = "img/pause.jpg";
 				}
 			}
+			
+			function jinDuTiao() {
+				var jindutiao = document.getElementById("progress");
+				jindutiao.style.width = parseInt(jindutiao.style.width) + 1 + "%";
+				jindutiao.innerHTML = jindutiao.style.width;
+				if(jindutiao.style.width == "100%") {
+					window.clearInterval(shijian);
+				}
+			}
+			
+			
 		</script>
 		
 		<link rel="stylesheet" href="css/style.css"/>
@@ -425,7 +445,9 @@
 	</head>
 	
 	<audio id="music" src="music/gaming.mp3" hidden="hidden" autoplay="autoplay" loop="loop"></audio>
-
+	<audio id="yinxiao" src="music/yinxiao3.mp3 " hidden="hidden" ></audio>
+	<audio id="dilei" src="music/boom.mp3" hidden="hidden" ></audio>
+	
 	<body>
 
 		地鼠停留时间: <input id="tl" type="text" size="5" value="1" />秒<br /> 

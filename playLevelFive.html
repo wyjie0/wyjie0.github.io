@@ -366,8 +366,11 @@
 			function play(obj) {
 				//获取图片的名称
 				var name = obj.src.substr(obj.src.length - 5, 1);
+				var yx = document.getElementById("yinxiao");
+				var dl = document.getElementById("dilei");
 
 				if(name == 2) {
+					yx.play();
 					obj.src = "img/3.jpg";
 
 					//计分
@@ -384,6 +387,7 @@
 				
 				if(name == 0) {
 
+					dl.play();
 					alert("嗨呀，打中地雷了，你失败啦！！\n" + document.getElementById("defen").innerText);
 					game_over();
 					//self.location = "index.html";
@@ -420,7 +424,9 @@
 	</head>
 	
 	<audio id="music" src="music/gaming.mp3" hidden="hidden" autoplay="autoplay" loop="loop"></audio>
-
+	<audio id="yinxiao" src="music/yinxiao3.mp3 " hidden="hidden" ></audio>
+	<audio id="dilei" src="music/boom.mp3" hidden="hidden" ></audio>
+	
 	<body>
 
 		地鼠停留时间: <input id="tl" type="text" size="5" value="2" />秒<br /> 
